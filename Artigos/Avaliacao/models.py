@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 # Create your models here
 
@@ -43,18 +43,18 @@ class Artigo(models.Model):
     def __str__(self):
         return self.titulo
 
-
+4
 
 
 class Avaliacao(models.Model):
     avaliador = models.ForeignKey(Avaliador, on_delete=models.CASCADE, default='')
-    Quantidade_Tecnica = models.FloatField('Qualidade Tecnica',max_length=6)
-    Inovacao = models.FloatField('Inovacao',max_length=6)  #
-    Resultado = models.FloatField(max_length=6)
-    Metodoliga = models.FloatField(max_length=6)
-    AT = models.FloatField('Adequacao Tematica do Evento',max_length=6)  #
+    Quantidade_Tecnica = models.FloatField('Qualidade Tecnica',max_length=2, validators=[MinValueValidator(0.0), MaxValueValidator(5.0)])
+    Inovacao = models.FloatField('Inovacao',max_length=2,validators=[MinValueValidator(0.0), MaxValueValidator(5.0)])
+    Resultado = models.FloatField(max_length=2, validators=[MinValueValidator(0.0), MaxValueValidator(5.0)])
+    Metodoliga = models.FloatField(max_length=2, validators=[MinValueValidator(0.0), MaxValueValidator(5.0)])
+    AT = models.FloatField('Adequacao Tematica do Evento',max_length=2, validators=[MinValueValidator(0.0), MaxValueValidator(5.0)])
     artigo = models.ForeignKey(Artigo, on_delete=models.CASCADE)
-    Media = models.FloatField('Media',max_length=6)
+    Media = models.FloatField('Media',max_length=2, validators=[MinValueValidator(0.0), MaxValueValidator(5.0)])
 
     class Meta:
         verbose_name_plural = "Avaliacoes"
